@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Svět chemie & bezpečnost – školní kvíz</title>
+  <style>
+    :root {
+      --bg: #fff7d6;
+      --panel: #ffffff;
+      --text: #242424;
+      --muted: #666666;
+      --primary: #ffea00;
+      --accent: #ff2f2f;
+      --accent-dark: #c91414;
+      --ok: #1f9d55;
+      --bad: #d93025;
+      --shadow: 0 18px 45px rgba(120, 45, 0, 0.18);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 47, 47, 0.18), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(255, 234, 0, 0.5), transparent 28rem),
+        var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .app {
+      width: min(980px, 100%);
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255, 47, 47, 0.18);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px clamp(18px, 4vw, 34px);
+      background: linear-gradient(135deg, var(--primary), #fff6a3);
+      border-bottom: 3px solid rgba(255, 47, 47, 0.3);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 64px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.22);
+      flex: 0 0 auto;
+    }
+
+    .logo svg { width: 45px; height: 45px; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 2.35rem);
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin: 5px 0 0;
+      color: #5f3200;
+      font-weight: 650;
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
+    }
+
+    .scorebar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(201, 20, 20, 0.2);
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    main {
+      padding: clamp(18px, 4vw, 36px);
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; animation: fade 220ms ease; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .intro, .result-card, .question-card {
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: clamp(20px, 4vw, 34px);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+    }
+
+    .intro h2, .result-card h2 {
+      margin-top: 0;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+    }
+
+    .intro p, .result-card p {
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.55;
+    }
+
+    select, button {
+      font: inherit;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 15px;
+      border: 2px solid rgba(255, 47, 47, 0.22);
+      background: #fff;
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 16px;
+      padding: 14px 18px;
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform 130ms ease, filter 130ms ease, box-shadow 130ms ease;
+      box-shadow: 0 10px 18px rgba(201, 20, 20, 0.18);
+    }
+
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #ffe66d;
+      color: #491b00;
+      box-shadow: none;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .progress {
+      height: 12px;
+      background: #ffe8e8;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0 0 24px;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #ff9c00);
+      border-radius: inherit;
+      transition: width 260ms ease;
+    }
+
+    .question {
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      margin: 0 0 22px;
+      line-height: 1.25;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .answer {
+      min-height: 76px;
+      text-align: left;
+      border: 2px solid rgba(0, 0, 0, 0.08);
+      border-radius: 18px;
+      background: #fff;
+      padding: 16px;
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--text);
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    .answer:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: #fffdf0;
+    }
+
+    .answer:disabled { cursor: not-allowed; }
+    .answer.correct { border-color: var(--ok); background: #e9f8ef; }
+    .answer.wrong { border-color: var(--bad); background: #fdecea; }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f7f7f7;
+      display: none;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    .feedback.show { display: block; }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .stat {
+      background: #fff8cf;
+      border: 2px solid rgba(255, 47, 47, 0.18);
+      border-radius: 20px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      color: var(--accent-dark);
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: #6c3a00;
+      font-weight: 900;
+    }
+
+    .review {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .review-item {
+      border-left: 6px solid #ddd;
+      background: #fafafa;
+      border-radius: 14px;
+      padding: 13px 14px;
+      line-height: 1.4;
+    }
+
+    .review-item.good { border-left-color: var(--ok); }
+    .review-item.bad { border-left-color: var(--bad); }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 720px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .scorebar { justify-content: flex-start; }
+      .answers, .settings, .result-grid { grid-template-columns: 1fr; }
+      .answer { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 100 100" role="img">
+            <polygon points="56 5 22 57 48 48 44 95 78 38 52 48" fill="#ff2f2f"></polygon>
+          </svg>
+        </div>
+        <div>
+          <h1>Svět chemie & bezpečnost</h1>
+          <p class="subtitle">Chemický průmysl v ČR</p>
+        </div>
+      </div>
+      <div class="scorebar" aria-label="Stav hry">
+        <div class="pill">Otázka: <span id="roundNow">0</span>/10</div>
+        <div class="pill">Energie: <span id="lightnings">0</span></div>
+      </div>
+    </header>
+
+    <main>
+      <section id="startScreen" class="screen active">
+        <div class="intro">
+          <h2>Pravidla</h2>
+          <p>Hra náhodně vybere 10 otázek z balíčku. Za každou správnou odpověď získáš 1 energii. Na konci uvidíš počet správných odpovědí, množství energie a přehled kola.</p>
+
+          <button class="btn btn-primary" id="startBtn">Spustit hru</button>
+        </div>
+      </section>
+
+      <section id="gameScreen" class="screen">
+        <div class="question-card">
+          <div class="topline">            <span id="scoreLabel">Správně: 0</span>
+          </div>
+          <div class="progress" aria-label="Průběh kola"><div id="progressBar"></div></div>
+          <h2 id="questionText" class="question"></h2>
+          <div id="answers" class="answers"></div>
+          <div id="feedback" class="feedback"></div>
+          <div class="actions">
+            <button class="btn btn-secondary" id="nextBtn" hidden>Další otázka</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="resultScreen" class="screen">
+        <div class="result-card">
+          <h2>Výsledek kola</h2>
+          <p id="resultMessage"></p>
+          <div class="result-grid">
+            <div class="stat"><strong id="finalScore">0/10</strong><span>správných odpovědí</span></div>
+            <div class="stat"><strong id="finalLightnings">0</strong><span>získané energie</span></div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-secondary" id="showReviewBtn">Zobrazit přehled</button>
+            <button class="btn btn-primary" id="restartBtn">Hrát znovu</button>
+          </div>
+          <div id="review" class="review" hidden></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const questionBank = [
+      {
+        question: "Který český chemik získal Nobelovu cenu za objev polarografu?",
+        answers: ["Jaroslav Heyrovský", "Otto Wichterle", "Antonín Holý", "František Šorm"],
+        correct: 0,
+        explanation: "Jaroslav Heyrovský získal Nobelovu cenu za chemii za objev a rozvoj polarografické metody."
+      },
+      {
+        question: "Jak se nazývá skleněná nádoba používaná alchymisty při destilaci?",
+        answers: ["Křivule", "Byreta", "Exsikátor", "Kádinka"],
+        correct: 0,
+        explanation: "Křivule je zahnutá skleněná nádoba, která se dříve používala mimo jiné při destilaci."
+      },
+      {
+        question: "Jaký je správný postup při ředění kyseliny vodou?",
+        answers: ["Kyselina se pomalu vlévá do vody", "Voda se rychle vleje do kyseliny", "Obě kapaliny se slívají současně", "Na pořadí vůbec nezáleží"],
+        correct: 0,
+        explanation: "Platí pravidlo: kyselinu lijeme do vody, nikdy ne vodu do kyseliny."
+      },
+      {
+        question: "Jak lze bezpečně zlikvidovat rozlitou rtuť?",
+        answers: ["Posypat sírou", "Vysát vysavačem", "Spláchnout do odpadu", "Setřít holou rukou"],
+        correct: 0,
+        explanation: "Rtuť je toxická. V laboratoři se postupuje podle bezpečnostních pokynů, často se používá síra a odborný sběr."
+      },
+      {
+        question: "Jak se nazývá směs dvou kyselin, která rozpouští i zlato?",
+        answers: ["Luční voda", "Lučavka královská", "Tvrdá voda", "Vápenná voda"],
+        correct: 1,
+        explanation: "Lučavka královská je směs koncentrované kyseliny chlorovodíkové a dusičné v poměru 3:1."
+      },
+      {
+        question: "Na která dvě japonská města byly v závěru druhé světové války svrženy atomové bomby?",
+        answers: ["Hirošima a Nagasaki", "Tokio a Kjóto", "Ósaka a Sapporo", "Nara a Jokohama"],
+        correct: 0,
+        explanation: "Atomové bomby byly svrženy na Hirošimu a Nagasaki v srpnu 1945."
+      },
+      {
+        question: "K čemu slouží Kemlerův a UN kód?",
+        answers: ["K označování nebezpečných látek při přepravě", "K měření teploty varu", "K výpočtu pH", "K pojmenování chemických sloučenin"],
+        correct: 0,
+        explanation: "Tyto kódy pomáhají identifikovat nebezpečí a konkrétní látku při přepravě."
+      },
+      {
+        question: "Který kov roztaje pouhým držením v ruce?",
+        answers: ["Gallium", "Železo", "Měď", "Hliník"],
+        correct: 0,
+        explanation: "Gallium má teplotu tání přibližně 30 °C, takže může tát v teplé dlani."
+      },
+      {
+        question: "K čemu slouží byreta?",
+        answers: ["K přesnému odměřování objemu při titraci", "K drcení pevných látek", "K ohřívání nad plamenem", "K filtrování suspenze"],
+        correct: 0,
+        explanation: "Byreta umožňuje velmi přesné dávkování kapaliny, například při titraci."
+      },
+      {
+        question: "Jaká hodnota pH odpovídá neutrálnímu roztoku?",
+        answers: ["7", "0", "14", "1"],
+        correct: 0,
+        explanation: "Neutrální roztok má pH přibližně 7."
+      },
+      {
+        question: "Kdo je považován za autora periodické tabulky prvků?",
+        answers: ["Dmitrij Ivanovič Mendělejev", "Albert Einstein", "Marie Curie-Skłodowská", "Isaac Newton"],
+        correct: 0,
+        explanation: "Dmitrij Ivanovič Mendělejev sestavil jednu z prvních periodických tabulek prvků."
+      },
+      {
+        question: "Co uděláš jako první, když se v laboratoři stane nehoda?",
+        answers: ["Okamžitě upozorním učitele", "Budu to tajit", "Začnu to nenápadně uklízet", "Uteču ze třídy"],
+        correct: 0,
+        explanation: "Při nehodě je nejdůležitější ihned informovat učitele nebo odpovědnou osobu."
+      },
+{
+  question: "Co v laboratoři nikdy neděláme s chemikáliemi?",
+  answers: ["Neochutnáváme je", "Popisujeme je", "Pozorujeme je", "Vážíme je"],
+  correct: 0,
+  explanation: "V laboratoři se chemikálie nikdy neochutnávají, protože mohou být zdraví nebezpečné."
+},
+{
+  question: "Co musíš v laboratoři nosit kvůli ochraně očí?",
+  answers: ["Ochranné brýle", "Sluchátka", "Čepici", "Šálu"],
+  correct: 0,
+  explanation: "Ochranné brýle chrání oči před prsknutím chemikálie nebo úlomkem skla."
+},
+{
+  question: "Co máš udělat při jakémkoliv poranění v laboratoři?",
+  answers: ["Ihned ho ohlásit učiteli", "Zatajit ho", "Odejít domů", "Pokračovat v práci"],
+  correct: 0,
+  explanation: "Každé poranění se musí ihned oznámit učiteli nebo odpovědné osobě."
+},
+{
+  question: "Co platí pro dlouhé vlasy při práci v laboratoři?",
+  answers: ["Musí být sepnuté", "Musí být rozpuštěné", "Musí být mokré", "Musí být zakryté papírem"],
+  correct: 0,
+  explanation: "Dlouhé vlasy musí být sepnuté, aby se nezachytily nebo nevznítily."
+},
+{
+  question: "Co nesmíš nikdy nechat bez dozoru?",
+  answers: ["Zapálený kahan", "Zavřenou učebnici", "Prázdnou kádinku", "Sešit s poznámkami"],
+  correct: 0,
+  explanation: "Zapálený kahan představuje riziko požáru, proto nesmí zůstat bez dozoru."
+},
+{
+  question: "Co se dělá po ukončení laboratorní práce?",
+  answers: ["Umyjí se pomůcky, uklidí místo a umyjí ruce", "Pomůcky se nechají na stole", "Chemikálie se vrátí kamkoliv", "Ruce se nemyjí"],
+  correct: 0,
+  explanation: "Po práci je nutné uklidit pracovní místo, očistit pomůcky a umýt si ruce."
+},
+{
+  question: "Jak správně ověřujeme zápach látky?",
+  answers: ["Mávnutím ruky směrem k nosu", "Přímým přičichnutím", "Ochutnáním", "Přiložením oka k látce"],
+  correct: 0,
+  explanation: "Výpary se ověřují z bezpečné vzdálenosti mávnutím ruky, nikdy přímým čicháním."
+},
+{
+  question: "Co se při ředění kyseliny vlévá do čeho?",
+  answers: ["Kyselina do vody", "Voda do kyseliny", "Obě látky současně", "Na pořadí nezáleží"],
+  correct: 0,
+  explanation: "Při ředění se vždy pomalu vlévá kyselina do vody, nikdy naopak."
+},
+{
+  question: "Co se nesmí dělat s použitými chemikáliemi?",
+  answers: ["Vracet je zpět do zásobních lahví", "Likvidovat podle pokynů", "Označit je", "Odevzdat je učiteli"],
+  correct: 0,
+  explanation: "Použité chemikálie se nevracejí do zásobních lahví, aby nedošlo ke znečištění obsahu."
+},
+{
+  question: "Co musí být správně označeno na nádobách s chemikáliemi?",
+  answers: ["Štítky", "Víčka barvou podle nálady", "Cena látky", "Jméno posledního žáka"],
+  correct: 0,
+  explanation: "Štítky zabraňují záměně chemikálií a informují o jejich nebezpečnosti."
+},
+{
+  question: "Čím se zabývá chemie?",
+  answers: ["Látkami, jejich složením, vlastnostmi a přeměnami", "Pouze hvězdami", "Pouze výpočty rychlosti", "Pouze stavbou mostů"],
+  correct: 0,
+  explanation: "Chemie zkoumá chemické látky, jejich vlastnosti, složení a chemické reakce."
+},
+{
+  question: "Jak se nazývají přeměny, při kterých z původních látek vznikají látky nové?",
+  answers: ["Chemické reakce", "Fyzikální jednotky", "Mechanické pohyby", "Optické klamy"],
+  correct: 0,
+  explanation: "Při chemických reakcích se původní látky mění na látky nové."
+},
+{
+  question: "Který výrobek patří mezi produkty chemického průmyslu?",
+  answers: ["Šampon", "Kamenný oblouk v přírodě", "Dřevěný pařez", "Sluneční záření"],
+  correct: 0,
+  explanation: "Mycí prostředky a kosmetika, například šampony, jsou produkty chemického průmyslu."
+},
+{
+  question: "Co jsou antibiotika?",
+  answers: ["Léky proti bakteriálním infekcím", "Látky proti plevelům", "Barviva do plastů", "Ochranné pomůcky"],
+  correct: 0,
+  explanation: "Antibiotika se používají k potlačení infekcí bakteriálního původu."
+},
+{
+  question: "Co jsou antipyretika?",
+  answers: ["Léky snižující horečku", "Látky hubící hmyz", "Pomůcky k destilaci", "Plyny pod tlakem"],
+  correct: 0,
+  explanation: "Antipyretika jsou léčiva, která snižují zvýšenou tělesnou teplotu."
+},
+{
+  question: "Co jsou herbicidy?",
+  answers: ["Přípravky proti nežádoucím rostlinám", "Přípravky proti horečce", "Látky na výrobu skla", "Nádoby k titraci"],
+  correct: 0,
+  explanation: "Herbicidy se používají k likvidaci nežádoucích rostlin, například plevelů."
+},
+{
+  question: "Co jsou insekticidy?",
+  answers: ["Přípravky k hubení hmyzu", "Léky proti bolesti", "Přípravky proti plísním", "Skleněné laboratorní nádoby"],
+  correct: 0,
+  explanation: "Insekticidy slouží k hubení hmyzu."
+},
+{
+  question: "Co jsou fungicidy?",
+  answers: ["Přípravky proti houbám a plísním", "Přípravky proti hmyzu", "Léky proti horečce", "Kovy s nízkou teplotou tání"],
+  correct: 0,
+  explanation: "Fungicidy se používají proti houbám a plísním."
+},
+{
+  question: "Co jsou aditiva v potravinářství?",
+  answers: ["Přídatné látky upravující vlastnosti potravin", "Výhradně jedovaté plyny", "Laboratorní sklo", "Přírodní horniny"],
+  correct: 0,
+  explanation: "Aditiva jsou přídatné látky používané ke zlepšení nebo úpravě vlastností potravin."
+},
+{
+  question: "Co označují H-věty na štítku chemikálie?",
+  answers: ["Nebezpečnost látky nebo směsi", "Návod k domácímu vaření", "Cenu výrobku", "Barvu obalu"],
+  correct: 0,
+  explanation: "H-věty jsou věty o nebezpečnosti chemických látek a směsí."
+},
+{
+  question: "Co označují P-věty na štítku chemikálie?",
+  answers: ["Pokyny pro bezpečné zacházení", "Pouze chemický vzorec", "Název výrobce", "Datum narození chemika"],
+  correct: 0,
+  explanation: "P-věty dávají pokyny pro bezpečné zacházení s chemickými látkami a směsmi."
+},
+{
+  question: "Co znamená piktogram s lebkou a zkříženými hnáty?",
+  answers: ["Toxická látka", "Oxidující látka", "Plyn pod tlakem", "Dráždivá látka"],
+  correct: 0,
+  explanation: "Lebka se zkříženými hnáty označuje toxické neboli jedovaté látky."
+},
+{
+  question: "Co znamená piktogram s plamenem?",
+  answers: ["Hořlavá látka", "Látka pod tlakem", "Látka nebezpečná pro životní prostředí", "Radioaktivní látka"],
+  correct: 0,
+  explanation: "Piktogram s plamenem upozorňuje na hořlavé látky."
+},
+{
+  question: "Co znamená piktogram s vykřičníkem?",
+  answers: ["Dráždivá nebo zdraví škodlivá látka", "Výbušnina", "Tlaková láhev", "Biologická látka"],
+  correct: 0,
+  explanation: "Vykřičník označuje například dráždivé látky nebo látky škodlivé pro zdraví."
+},
+{
+  question: "Co znamená piktogram s mrtvou rybou a stromem?",
+  answers: ["Nebezpečí pro životní prostředí", "Látka vhodná k pití", "Látka bez rizika", "Ochranná pomůcka"],
+  correct: 0,
+  explanation: "Tento piktogram upozorňuje na látky nebezpečné pro životní prostředí."
+},
+{
+  question: "Co znamená neutralizace?",
+  answers: ["Reakce kyseliny s hydroxidem za vzniku soli a vody", "Rozpouštění cukru ve vodě", "Zahřívání kovu", "Míchání dvou plynů bez reakce"],
+  correct: 0,
+  explanation: "Neutralizace je reakce kyseliny se zásadou, při které vzniká sůl a voda."
+},
+{
+  question: "Co uděláš při polití kyselinou nebo hydroxidem?",
+  answers: ["Dlouze oplachuješ vodou a vyhledáš pomoc", "Neutralizuješ to jinou chemikálií", "Zakryješ místo bez oplachu", "Neuděláš nic"],
+  correct: 0,
+  explanation: "Postižené místo se dlouze oplachuje proudem vody. Neutralizace na kůži by mohla poleptání zhoršit."
+},
+{
+  question: "K čemu slouží Kemlerův kód při přepravě?",
+  answers: ["K označení druhu nebezpečí", "K označení ceny nákladu", "K označení značky auta", "K měření objemu cisterny"],
+  correct: 0,
+  explanation: "Kemlerův kód označuje charakter nebezpečí přepravované látky."
+},
+{
+  question: "K čemu slouží UN kód při přepravě?",
+  answers: ["K identifikaci konkrétní nebezpečné látky", "K určení rychlosti vozidla", "K měření tlaku v pneumatikách", "K označení řidiče"],
+  correct: 0,
+  explanation: "UN kód slouží k identifikaci konkrétní nebezpečné látky při přepravě."
+},
+{
+  question: "Jak se nazývá předchůdkyně chemie?",
+  answers: ["Alchymie", "Astronomie", "Astrologie", "Kvantová fyzika"],
+  correct: 0,
+  explanation: "Alchymie je považována za předchůdkyni moderní chemie."
+},
+{
+  question: "Co byl kámen mudrců podle představ alchymistů?",
+  answers: ["Látka schopná přeměnit běžné kovy ve zlato", "Nádoba na kyseliny", "Druh laboratorních brýlí", "Přírodní magnet"],
+  correct: 0,
+  explanation: "Alchymisté věřili, že kámen mudrců dokáže přeměnit obyčejné kovy ve zlato."
+},
+{
+  question: "Který filozof spojoval hmotu se čtyřmi živly?",
+  answers: ["Aristoteles", "James Price", "Jaroslav Heyrovský", "Alfred Nobel"],
+  correct: 0,
+  explanation: "Aristoteles vycházel z teorie čtyř živlů: země, ohně, vody a vzduchu."
+},
+{
+  question: "Které čtyři živly uváděla starověká teorie hmoty?",
+  answers: ["Země, oheň, voda, vzduch", "Kov, sklo, plast, dřevo", "Sůl, cukr, voda, olej", "Led, pára, mlha, déšť"],
+  correct: 0,
+  explanation: "Podle starověké teorie se hmota skládala ze čtyř živlů: země, ohně, vody a vzduchu."
+},
+{
+  question: "Kdo je spojován s takzvanou Glauberovou solí?",
+  answers: ["Johann Rudolf Glauber", "Isaac Newton", "Paracelsus", "James Price"],
+  correct: 0,
+  explanation: "Johann Rudolf Glauber je spojován se síranem sodným, známým jako Glauberova sůl."
+},
+{
+  question: "Co je Glauberova sůl?",
+  answers: ["Síran sodný", "Chlorid sodný", "Kyselina sírová", "Oxid uhličitý"],
+  correct: 0,
+  explanation: "Glauberova sůl je síran sodný."
+},
+{
+  question: "Který alchymista prosazoval, že cílem alchymie má být příprava léků?",
+  answers: ["Paracelsus", "James Price", "Aristoteles", "Rabi Löw"],
+  correct: 0,
+  explanation: "Paracelsus zdůrazňoval využití alchymie v medicíně a při přípravě léků."
+},
+{
+  question: "Jaké laboratorní techniky znali už alchymisté?",
+  answers: ["Destilaci, sublimaci a krystalizaci", "Chromatografii", "Elektrolýzu", "Centrifugace"],
+  correct: 0,
+  explanation: "Alchymisté používali techniky jako destilace, sublimace a krystalizace."
+},
+{
+  question: "K čemu slouží kádinka?",
+  answers: ["K práci s kapalinami v laboratoři", "K měření elektrického proudu", "K psaní protokolu", "K ochraně očí"],
+  correct: 0,
+  explanation: "Kádinka je běžná laboratorní nádoba používaná při práci s kapalinami."
+},
+{
+  question: "K čemu slouží třecí miska s tloučkem?",
+  answers: ["K drcení a roztírání pevných látek", "K přesnému měření objemu", "K ochraně rukou", "K chlazení par"],
+  correct: 0,
+  explanation: "Třecí miska s tloučkem se používá k rozdrcení nebo rozetření pevných látek."
+},
+{
+  question: "K čemu slouží odměrný válec?",
+  answers: ["K odměřování objemu kapalin", "K zahřívání plamenem", "K zachytávání plynů pod tlakem", "K filtrování vzduchu"],
+  correct: 0,
+  explanation: "Odměrný válec se používá k měření objemu kapalin."
+},
+{
+  question: "K čemu slouží laboratorní chladič?",
+  answers: ["Ke chlazení par při destilaci", "K zapalování kahanu", "K vážení prášků", "K měření pH"],
+  correct: 0,
+  explanation: "Chladič ochlazuje páry, které pak kondenzují zpět na kapalinu."
+},
+{
+  question: "K čemu slouží Petriho miska?",
+  answers: ["K práci s malým množstvím vzorku nebo kulturami", "K měření přesného objemu kyseliny", "K hoření plynu", "K uchycení zkumavky"],
+  correct: 0,
+  explanation: "Petriho miska je mělká laboratorní miska využívaná například pro vzorky nebo kultury."
+},
+{
+  question: "Která vlastnost látky říká, zda látka vede elektrický proud?",
+  answers: ["Vodivost", "Barva", "Zápach", "Objem"],
+  correct: 0,
+  explanation: "Vodivost vyjadřuje schopnost látky vést elektrický proud."
+},
+{
+  question: "Jak se nazývá změna z pevného skupenství na kapalné?",
+  answers: ["Tání", "Tuhnutí", "Sublimace", "Kondenzace"],
+  correct: 0,
+  explanation: "Přechod z pevného skupenství do kapalného se nazývá tání."
+},
+{
+  question: "Jak se nazývá změna z kapalného skupenství na plynné?",
+  answers: ["Vypařování", "Tuhnutí", "Desublimace", "Krystalizace"],
+  correct: 0,
+  explanation: "Přechod kapaliny na plyn se nazývá vypařování."
+},
+{
+  question: "Jak se nazývá změna z plynného skupenství na kapalné?",
+  answers: ["Kondenzace", "Tání", "Sublimace", "Tuhnutí"],
+  correct: 0,
+  explanation: "Přechod plynu na kapalinu se nazývá kondenzace neboli zkapalnění."
+},
+{
+  question: "Jak se nazývá změna z pevného skupenství přímo na plynné?",
+  answers: ["Sublimace", "Tání", "Kondenzace", "Tuhnutí"],
+  correct: 0,
+  explanation: "Sublimace je přechod z pevného skupenství přímo do plynného."
+},
+{
+  question: "Jak se nazývá změna z plynného skupenství přímo na pevné?",
+  answers: ["Desublimace", "Vypařování", "Tání", "Var"],
+  correct: 0,
+  explanation: "Desublimace je přechod z plynného skupenství přímo do pevného."
+},
+{
+  question: "Které skupenství má stálý tvar i objem?",
+  answers: ["Pevné", "Kapalné", "Plynné", "Plazma vždy při pokojové teplotě"],
+  correct: 0,
+  explanation: "Pevné látky mají stálý tvar i objem."
+},
+{
+  question: "Které skupenství má stálý objem, ale tvar podle nádoby?",
+  answers: ["Kapalné", "Pevné", "Plynné", "Žádné"],
+  correct: 0,
+  explanation: "Kapaliny mají stálý objem, ale tvar zaujímají podle nádoby."
+},
+{
+  question: "Které skupenství nemá stálý tvar ani stálý objem?",
+  answers: ["Plynné", "Pevné", "Kapalné", "Krystalické"],
+  correct: 0,
+  explanation: "Plyny nemají stálý tvar ani objem a vyplňují dostupný prostor."
+},
+{
+  question: "Co je plazma?",
+  answers: ["Skupenství vznikající za velmi vysokých teplot", "Druh laboratorního skla", "Lék proti horečce", "Typ piktogramu"],
+  correct: 0,
+  explanation: "Plazma vzniká za velmi vysokých teplot a vyskytuje se například v ohni, blescích nebo polární záři."
+},
+{
+  question: "Jaký fyzikální děj probíhá při tání ledu?",
+  answers: ["Mění se skupenství, ale ne chemické složení", "Vzniká nová chemická látka", "Vzniká kov", "Probíhá neutralizace"],
+  correct: 0,
+  explanation: "Tání ledu je fyzikální děj, protože se mění pouze skupenství vody."
+},
+{
+  question: "Který z uvedených dějů je chemický?",
+  answers: ["Rezavění železa", "Tání ledu", "Vaření vody", "Rozdrcení křídy"],
+  correct: 0,
+  explanation: "Rezavění železa je chemický děj, protože vznikají nové látky."
+},
+{
+  question: "Který z uvedených dějů je fyzikální?",
+  answers: ["Filtrace odpadní vody", "Hoření síry", "Spalování benzinu", "Trávení potravy"],
+  correct: 0,
+  explanation: "Filtrace je fyzikální děj, protože se při ní nemění chemické složení látek."
+}
+    ];
+
+    const state = {
+      round: [],
+      current: 0,
+      score: 0,
+      lightnings: 0,
+      answered: false,
+      history: []
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    const screens = {
+      start: $("startScreen"),
+      game: $("gameScreen"),
+      result: $("resultScreen")
+    };
+
+    function showScreen(name) {
+      Object.values(screens).forEach(screen => screen.classList.remove("active"));
+      screens[name].classList.add("active");
+    }
+
+    function shuffle(array) {
+      return [...array].sort(() => Math.random() - 0.5);
+    }
+
+    function startGame() {
+      const available = questionBank;
+      const count = 10;
+
+      state.round = shuffle(available).slice(0, Math.min(count, available.length));
+      state.current = 0;
+      state.score = 0;
+      state.lightnings = 0;
+      state.answered = false;
+      state.history = [];
+
+      updateHeader();
+      showScreen("game");
+      renderQuestion();
+    }
+
+    function updateHeader() {
+      $("roundNow").textContent = Math.min(state.current + 1, state.round.length || 0);
+      $("lightnings").textContent = state.lightnings;
+      $("scoreLabel").textContent = `Správně: ${state.score}`;
+      const progress = state.round.length ? (state.current / state.round.length) * 100 : 0;
+      $("progressBar").style.width = `${progress}%`;
+    }
+
+    function renderQuestion() {
+      const q = state.round[state.current];
+      state.answered = false;      $("questionText").textContent = q.question;
+      $("feedback").className = "feedback";
+      $("feedback").textContent = "";
+      $("nextBtn").hidden = true;
+      $("answers").innerHTML = "";
+      updateHeader();
+
+      const mappedAnswers = q.answers.map((text, originalIndex) => ({ text, originalIndex }));
+      shuffle(mappedAnswers).forEach((answer, visibleIndex) => {
+        const button = document.createElement("button");
+        button.className = "answer";
+        button.type = "button";
+        button.innerHTML = `<span aria-hidden="true">${String.fromCharCode(65 + visibleIndex)}.</span> ${answer.text}`;
+        button.addEventListener("click", () => chooseAnswer(button, answer.originalIndex));
+        $("answers").appendChild(button);
+      });
+    }
+
+    function chooseAnswer(button, selectedIndex) {
+      if (state.answered) return;
+      state.answered = true;
+
+      const q = state.round[state.current];
+      const isCorrect = selectedIndex === q.correct;
+      const buttons = [...document.querySelectorAll(".answer")];
+
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        const text = btn.textContent.replace(/^[A-D]\.\s*/, "").trim();
+        const originalIndex = q.answers.indexOf(text);
+        if (originalIndex === q.correct) btn.classList.add("correct");
+      });
+
+      if (isCorrect) {
+        state.score += 1;
+        state.lightnings += 1;
+        button.classList.add("correct");
+        $("feedback").innerHTML = `✅ Správně! Získáváš energii.<br><span class="small">${q.explanation}</span>`;
+      } else {
+        button.classList.add("wrong");
+        $("feedback").innerHTML = `❌ To není správně. Správná odpověď: <strong>${q.answers[q.correct]}</strong>.<br><span class="small">${q.explanation}</span>`;
+      }
+
+      state.history.push({
+        question: q.question,
+        selected: q.answers[selectedIndex],
+        correct: q.answers[q.correct],
+        isCorrect
+      });
+
+      $("feedback").classList.add("show");
+      $("nextBtn").hidden = false;
+      updateHeader();
+    }
+
+    function nextQuestion() {
+      state.current += 1;
+      if (state.current >= state.round.length) {
+        showResults();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    function showResults() {
+      $("roundNow").textContent = state.round.length;
+      $("progressBar").style.width = "100%";
+      showScreen("result");
+
+      const total = state.round.length;
+      const percent = Math.round((state.score / total) * 100);
+      $("finalScore").textContent = `${state.score}/${total}`;
+      $("finalLightnings").textContent = state.lightnings;
+
+      let message = "Dobrá práce!";
+      if (percent === 100) message = "Perfektní výsledek! Máš maximum energie.";
+      else if (percent >= 80) message = "Výborně! Většinu otázek máš správně.";
+      else if (percent >= 50) message = "Slušný výkon. Ještě pár pokusů a bude to skvělé.";
+      else message = "Nevadí, zkus další kolo a nasbírej více energie.";
+
+      $("resultMessage").textContent = message;
+      renderReview();
+    }
+
+    function renderReview() {
+      const review = $("review");
+      review.innerHTML = "";
+      state.history.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = `review-item ${item.isCorrect ? "good" : "bad"}`;
+        div.innerHTML = `
+          <strong>${index + 1}. ${item.question}</strong>
+          <div class="small">Tvoje odpověď: ${item.selected}</div>
+          <div class="small">Správně: ${item.correct}</div>
+        `;
+        review.appendChild(div);
+      });
+    }
+
+    $("startBtn").addEventListener("click", startGame);
+    $("nextBtn").addEventListener("click", nextQuestion);
+    $("restartBtn").addEventListener("click", () => {
+      $("review").hidden = true;
+      $("showReviewBtn").textContent = "Zobrazit přehled";
+      showScreen("start");
+      $("roundNow").textContent = "0";
+      $("lightnings").textContent = "0";
+    });
+    $("showReviewBtn").addEventListener("click", () => {
+      const review = $("review");
+      review.hidden = !review.hidden;
+      $("showReviewBtn").textContent = review.hidden ? "Zobrazit přehled" : "Skrýt přehled";
+    });
+  </script>
+</body>
+</html>
