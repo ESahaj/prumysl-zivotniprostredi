@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Svět chemie & bezpečnost – školní kvíz</title>
+  <title>Chemický průmysl a životní prostředí – školní kvíz</title>
   <style>
     :root {
       --bg: #fff7d6;
@@ -328,8 +328,8 @@
           </svg>
         </div>
         <div>
-          <h1>Svět chemie & bezpečnost</h1>
-          <p class="subtitle">Chemický průmysl v ČR</p>
+          <h1>Prvky v PSP</h1>
+          <p class="subtitle">Chemický průmysl a životní prostředí</p>
         </div>
       </div>
       <div class="scorebar" aria-label="Stav hry">
@@ -381,575 +381,488 @@
   </div>
 
   <script>
-    const questionBank = [
-      {
-        question: "Který český chemik získal Nobelovu cenu za objev polarografu?",
-        answers: ["Jaroslav Heyrovský", "Otto Wichterle", "Antonín Holý", "František Šorm"],
-        correct: 0,
-        explanation: "Jaroslav Heyrovský získal Nobelovu cenu za chemii za objev a rozvoj polarografické metody."
-      },
-      {
-        question: "Jak se nazývá skleněná nádoba používaná alchymisty při destilaci?",
-        answers: ["Křivule", "Byreta", "Exsikátor", "Kádinka"],
-        correct: 0,
-        explanation: "Křivule je zahnutá skleněná nádoba, která se dříve používala mimo jiné při destilaci."
-      },
-      {
-        question: "Jaký je správný postup při ředění kyseliny vodou?",
-        answers: ["Kyselina se pomalu vlévá do vody", "Voda se rychle vleje do kyseliny", "Obě kapaliny se slívají současně", "Na pořadí vůbec nezáleží"],
-        correct: 0,
-        explanation: "Platí pravidlo: kyselinu lijeme do vody, nikdy ne vodu do kyseliny."
-      },
-      {
-        question: "Jak lze bezpečně zlikvidovat rozlitou rtuť?",
-        answers: ["Posypat sírou", "Vysát vysavačem", "Spláchnout do odpadu", "Setřít holou rukou"],
-        correct: 0,
-        explanation: "Rtuť je toxická. V laboratoři se postupuje podle bezpečnostních pokynů, často se používá síra a odborný sběr."
-      },
-      {
-        question: "Jak se nazývá směs dvou kyselin, která rozpouští i zlato?",
-        answers: ["Luční voda", "Lučavka královská", "Tvrdá voda", "Vápenná voda"],
-        correct: 1,
-        explanation: "Lučavka královská je směs koncentrované kyseliny chlorovodíkové a dusičné v poměru 3:1."
-      },
-      {
-        question: "Na která dvě japonská města byly v závěru druhé světové války svrženy atomové bomby?",
-        answers: ["Hirošima a Nagasaki", "Tokio a Kjóto", "Ósaka a Sapporo", "Nara a Jokohama"],
-        correct: 0,
-        explanation: "Atomové bomby byly svrženy na Hirošimu a Nagasaki v srpnu 1945."
-      },
-      {
-        question: "K čemu slouží Kemlerův a UN kód?",
-        answers: ["K označování nebezpečných látek při přepravě", "K měření teploty varu", "K výpočtu pH", "K pojmenování chemických sloučenin"],
-        correct: 0,
-        explanation: "Tyto kódy pomáhají identifikovat nebezpečí a konkrétní látku při přepravě."
-      },
-      {
-        question: "Který kov roztaje pouhým držením v ruce?",
-        answers: ["Gallium", "Železo", "Měď", "Hliník"],
-        correct: 0,
-        explanation: "Gallium má teplotu tání přibližně 30 °C, takže může tát v teplé dlani."
-      },
-      {
-        question: "K čemu slouží byreta?",
-        answers: ["K přesnému odměřování objemu při titraci", "K drcení pevných látek", "K ohřívání nad plamenem", "K filtrování suspenze"],
-        correct: 0,
-        explanation: "Byreta umožňuje velmi přesné dávkování kapaliny, například při titraci."
-      },
-      {
-        question: "Jaká hodnota pH odpovídá neutrálnímu roztoku?",
-        answers: ["7", "0", "14", "1"],
-        correct: 0,
-        explanation: "Neutrální roztok má pH přibližně 7."
-      },
-      {
-        question: "Kdo je považován za autora periodické tabulky prvků?",
-        answers: ["Dmitrij Ivanovič Mendělejev", "Albert Einstein", "Marie Curie-Skłodowská", "Isaac Newton"],
-        correct: 0,
-        explanation: "Dmitrij Ivanovič Mendělejev sestavil jednu z prvních periodických tabulek prvků."
-      },
-      {
-        question: "Co uděláš jako první, když se v laboratoři stane nehoda?",
-        answers: ["Okamžitě upozorním učitele", "Budu to tajit", "Začnu to nenápadně uklízet", "Uteču ze třídy"],
-        correct: 0,
-        explanation: "Při nehodě je nejdůležitější ihned informovat učitele nebo odpovědnou osobu."
-      },
-{
-  question: "Co v laboratoři nikdy neděláme s chemikáliemi?",
-  answers: ["Neochutnáváme je", "Popisujeme je", "Pozorujeme je", "Vážíme je"],
-  correct: 0,
-  explanation: "V laboratoři se chemikálie nikdy neochutnávají, protože mohou být zdraví nebezpečné."
-},
-{
-  question: "Co musíš v laboratoři nosit kvůli ochraně očí?",
-  answers: ["Ochranné brýle", "Sluchátka", "Čepici", "Šálu"],
-  correct: 0,
-  explanation: "Ochranné brýle chrání oči před prsknutím chemikálie nebo úlomkem skla."
-},
-{
-  question: "Co máš udělat při jakémkoliv poranění v laboratoři?",
-  answers: ["Ihned ho ohlásit učiteli", "Zatajit ho", "Odejít domů", "Pokračovat v práci"],
-  correct: 0,
-  explanation: "Každé poranění se musí ihned oznámit učiteli nebo odpovědné osobě."
-},
-{
-  question: "Co platí pro dlouhé vlasy při práci v laboratoři?",
-  answers: ["Musí být sepnuté", "Musí být rozpuštěné", "Musí být mokré", "Musí být zakryté papírem"],
-  correct: 0,
-  explanation: "Dlouhé vlasy musí být sepnuté, aby se nezachytily nebo nevznítily."
-},
-{
-  question: "Co nesmíš nikdy nechat bez dozoru?",
-  answers: ["Zapálený kahan", "Zavřenou učebnici", "Prázdnou kádinku", "Sešit s poznámkami"],
-  correct: 0,
-  explanation: "Zapálený kahan představuje riziko požáru, proto nesmí zůstat bez dozoru."
-},
-{
-  question: "Co se dělá po ukončení laboratorní práce?",
-  answers: ["Umyjí se pomůcky, uklidí místo a umyjí ruce", "Pomůcky se nechají na stole", "Chemikálie se vrátí kamkoliv", "Ruce se nemyjí"],
-  correct: 0,
-  explanation: "Po práci je nutné uklidit pracovní místo, očistit pomůcky a umýt si ruce."
-},
-{
-  question: "Jak správně ověřujeme zápach látky?",
-  answers: ["Mávnutím ruky směrem k nosu", "Přímým přičichnutím", "Ochutnáním", "Přiložením oka k látce"],
-  correct: 0,
-  explanation: "Výpary se ověřují z bezpečné vzdálenosti mávnutím ruky, nikdy přímým čicháním."
-},
-{
-  question: "Co se při ředění kyseliny vlévá do čeho?",
-  answers: ["Kyselina do vody", "Voda do kyseliny", "Obě látky současně", "Na pořadí nezáleží"],
-  correct: 0,
-  explanation: "Při ředění se vždy pomalu vlévá kyselina do vody, nikdy naopak."
-},
-{
-  question: "Co se nesmí dělat s použitými chemikáliemi?",
-  answers: ["Vracet je zpět do zásobních lahví", "Likvidovat podle pokynů", "Označit je", "Odevzdat je učiteli"],
-  correct: 0,
-  explanation: "Použité chemikálie se nevracejí do zásobních lahví, aby nedošlo ke znečištění obsahu."
-},
-{
-  question: "Co musí být správně označeno na nádobách s chemikáliemi?",
-  answers: ["Štítky", "Víčka barvou podle nálady", "Cena látky", "Jméno posledního žáka"],
-  correct: 0,
-  explanation: "Štítky zabraňují záměně chemikálií a informují o jejich nebezpečnosti."
-},
-{
-  question: "Čím se zabývá chemie?",
-  answers: ["Látkami, jejich složením, vlastnostmi a přeměnami", "Pouze hvězdami", "Pouze výpočty rychlosti", "Pouze stavbou mostů"],
-  correct: 0,
-  explanation: "Chemie zkoumá chemické látky, jejich vlastnosti, složení a chemické reakce."
-},
-{
-  question: "Jak se nazývají přeměny, při kterých z původních látek vznikají látky nové?",
-  answers: ["Chemické reakce", "Fyzikální jednotky", "Mechanické pohyby", "Optické klamy"],
-  correct: 0,
-  explanation: "Při chemických reakcích se původní látky mění na látky nové."
-},
-{
-  question: "Který výrobek patří mezi produkty chemického průmyslu?",
-  answers: ["Šampon", "Kamenný oblouk v přírodě", "Dřevěný pařez", "Sluneční záření"],
-  correct: 0,
-  explanation: "Mycí prostředky a kosmetika, například šampony, jsou produkty chemického průmyslu."
-},
-{
-  question: "Co jsou antibiotika?",
-  answers: ["Léky proti bakteriálním infekcím", "Látky proti plevelům", "Barviva do plastů", "Ochranné pomůcky"],
-  correct: 0,
-  explanation: "Antibiotika se používají k potlačení infekcí bakteriálního původu."
-},
-{
-  question: "Co jsou antipyretika?",
-  answers: ["Léky snižující horečku", "Látky hubící hmyz", "Pomůcky k destilaci", "Plyny pod tlakem"],
-  correct: 0,
-  explanation: "Antipyretika jsou léčiva, která snižují zvýšenou tělesnou teplotu."
-},
-{
-  question: "Co jsou herbicidy?",
-  answers: ["Přípravky proti nežádoucím rostlinám", "Přípravky proti horečce", "Látky na výrobu skla", "Nádoby k titraci"],
-  correct: 0,
-  explanation: "Herbicidy se používají k likvidaci nežádoucích rostlin, například plevelů."
-},
-{
-  question: "Co jsou insekticidy?",
-  answers: ["Přípravky k hubení hmyzu", "Léky proti bolesti", "Přípravky proti plísním", "Skleněné laboratorní nádoby"],
-  correct: 0,
-  explanation: "Insekticidy slouží k hubení hmyzu."
-},
-{
-  question: "Co jsou fungicidy?",
-  answers: ["Přípravky proti houbám a plísním", "Přípravky proti hmyzu", "Léky proti horečce", "Kovy s nízkou teplotou tání"],
-  correct: 0,
-  explanation: "Fungicidy se používají proti houbám a plísním."
-},
-{
-  question: "Co jsou aditiva v potravinářství?",
-  answers: ["Přídatné látky upravující vlastnosti potravin", "Výhradně jedovaté plyny", "Laboratorní sklo", "Přírodní horniny"],
-  correct: 0,
-  explanation: "Aditiva jsou přídatné látky používané ke zlepšení nebo úpravě vlastností potravin."
-},
-{
-  question: "Co označují H-věty na štítku chemikálie?",
-  answers: ["Nebezpečnost látky nebo směsi", "Návod k domácímu vaření", "Cenu výrobku", "Barvu obalu"],
-  correct: 0,
-  explanation: "H-věty jsou věty o nebezpečnosti chemických látek a směsí."
-},
-{
-  question: "Co označují P-věty na štítku chemikálie?",
-  answers: ["Pokyny pro bezpečné zacházení", "Pouze chemický vzorec", "Název výrobce", "Datum narození chemika"],
-  correct: 0,
-  explanation: "P-věty dávají pokyny pro bezpečné zacházení s chemickými látkami a směsmi."
-},
-{
-  question: "Co znamená piktogram s lebkou a zkříženými hnáty?",
-  answers: ["Toxická látka", "Oxidující látka", "Plyn pod tlakem", "Dráždivá látka"],
-  correct: 0,
-  explanation: "Lebka se zkříženými hnáty označuje toxické neboli jedovaté látky."
-},
-{
-  question: "Co znamená piktogram s plamenem?",
-  answers: ["Hořlavá látka", "Látka pod tlakem", "Látka nebezpečná pro životní prostředí", "Radioaktivní látka"],
-  correct: 0,
-  explanation: "Piktogram s plamenem upozorňuje na hořlavé látky."
-},
-{
-  question: "Co znamená piktogram s vykřičníkem?",
-  answers: ["Dráždivá nebo zdraví škodlivá látka", "Výbušnina", "Tlaková láhev", "Biologická látka"],
-  correct: 0,
-  explanation: "Vykřičník označuje například dráždivé látky nebo látky škodlivé pro zdraví."
-},
-{
-  question: "Co znamená piktogram s mrtvou rybou a stromem?",
-  answers: ["Nebezpečí pro životní prostředí", "Látka vhodná k pití", "Látka bez rizika", "Ochranná pomůcka"],
-  correct: 0,
-  explanation: "Tento piktogram upozorňuje na látky nebezpečné pro životní prostředí."
-},
-{
-  question: "Co znamená neutralizace?",
-  answers: ["Reakce kyseliny s hydroxidem za vzniku soli a vody", "Rozpouštění cukru ve vodě", "Zahřívání kovu", "Míchání dvou plynů bez reakce"],
-  correct: 0,
-  explanation: "Neutralizace je reakce kyseliny se zásadou, při které vzniká sůl a voda."
-},
-{
-  question: "Co uděláš při polití kyselinou nebo hydroxidem?",
-  answers: ["Dlouze oplachuješ vodou a vyhledáš pomoc", "Neutralizuješ to jinou chemikálií", "Zakryješ místo bez oplachu", "Neuděláš nic"],
-  correct: 0,
-  explanation: "Postižené místo se dlouze oplachuje proudem vody. Neutralizace na kůži by mohla poleptání zhoršit."
-},
-{
-  question: "K čemu slouží Kemlerův kód při přepravě?",
-  answers: ["K označení druhu nebezpečí", "K označení ceny nákladu", "K označení značky auta", "K měření objemu cisterny"],
-  correct: 0,
-  explanation: "Kemlerův kód označuje charakter nebezpečí přepravované látky."
-},
-{
-  question: "K čemu slouží UN kód při přepravě?",
-  answers: ["K identifikaci konkrétní nebezpečné látky", "K určení rychlosti vozidla", "K měření tlaku v pneumatikách", "K označení řidiče"],
-  correct: 0,
-  explanation: "UN kód slouží k identifikaci konkrétní nebezpečné látky při přepravě."
-},
-{
-  question: "Jak se nazývá předchůdkyně chemie?",
-  answers: ["Alchymie", "Astronomie", "Astrologie", "Kvantová fyzika"],
-  correct: 0,
-  explanation: "Alchymie je považována za předchůdkyni moderní chemie."
-},
-{
-  question: "Co byl kámen mudrců podle představ alchymistů?",
-  answers: ["Látka schopná přeměnit běžné kovy ve zlato", "Nádoba na kyseliny", "Druh laboratorních brýlí", "Přírodní magnet"],
-  correct: 0,
-  explanation: "Alchymisté věřili, že kámen mudrců dokáže přeměnit obyčejné kovy ve zlato."
-},
-{
-  question: "Který filozof spojoval hmotu se čtyřmi živly?",
-  answers: ["Aristoteles", "James Price", "Jaroslav Heyrovský", "Alfred Nobel"],
-  correct: 0,
-  explanation: "Aristoteles vycházel z teorie čtyř živlů: země, ohně, vody a vzduchu."
-},
-{
-  question: "Které čtyři živly uváděla starověká teorie hmoty?",
-  answers: ["Země, oheň, voda, vzduch", "Kov, sklo, plast, dřevo", "Sůl, cukr, voda, olej", "Led, pára, mlha, déšť"],
-  correct: 0,
-  explanation: "Podle starověké teorie se hmota skládala ze čtyř živlů: země, ohně, vody a vzduchu."
-},
-{
-  question: "Kdo je spojován s takzvanou Glauberovou solí?",
-  answers: ["Johann Rudolf Glauber", "Isaac Newton", "Paracelsus", "James Price"],
-  correct: 0,
-  explanation: "Johann Rudolf Glauber je spojován se síranem sodným, známým jako Glauberova sůl."
-},
-{
-  question: "Co je Glauberova sůl?",
-  answers: ["Síran sodný", "Chlorid sodný", "Kyselina sírová", "Oxid uhličitý"],
-  correct: 0,
-  explanation: "Glauberova sůl je síran sodný."
-},
-{
-  question: "Který alchymista prosazoval, že cílem alchymie má být příprava léků?",
-  answers: ["Paracelsus", "James Price", "Aristoteles", "Rabi Löw"],
-  correct: 0,
-  explanation: "Paracelsus zdůrazňoval využití alchymie v medicíně a při přípravě léků."
-},
-{
-  question: "Jaké laboratorní techniky znali už alchymisté?",
-  answers: ["Destilaci, sublimaci a krystalizaci", "Chromatografii", "Elektrolýzu", "Centrifugace"],
-  correct: 0,
-  explanation: "Alchymisté používali techniky jako destilace, sublimace a krystalizace."
-},
-{
-  question: "K čemu slouží kádinka?",
-  answers: ["K práci s kapalinami v laboratoři", "K měření elektrického proudu", "K psaní protokolu", "K ochraně očí"],
-  correct: 0,
-  explanation: "Kádinka je běžná laboratorní nádoba používaná při práci s kapalinami."
-},
-{
-  question: "K čemu slouží třecí miska s tloučkem?",
-  answers: ["K drcení a roztírání pevných látek", "K přesnému měření objemu", "K ochraně rukou", "K chlazení par"],
-  correct: 0,
-  explanation: "Třecí miska s tloučkem se používá k rozdrcení nebo rozetření pevných látek."
-},
-{
-  question: "K čemu slouží odměrný válec?",
-  answers: ["K odměřování objemu kapalin", "K zahřívání plamenem", "K zachytávání plynů pod tlakem", "K filtrování vzduchu"],
-  correct: 0,
-  explanation: "Odměrný válec se používá k měření objemu kapalin."
-},
-{
-  question: "K čemu slouží laboratorní chladič?",
-  answers: ["Ke chlazení par při destilaci", "K zapalování kahanu", "K vážení prášků", "K měření pH"],
-  correct: 0,
-  explanation: "Chladič ochlazuje páry, které pak kondenzují zpět na kapalinu."
-},
-{
-  question: "K čemu slouží Petriho miska?",
-  answers: ["K práci s malým množstvím vzorku nebo kulturami", "K měření přesného objemu kyseliny", "K hoření plynu", "K uchycení zkumavky"],
-  correct: 0,
-  explanation: "Petriho miska je mělká laboratorní miska využívaná například pro vzorky nebo kultury."
-},
-{
-  question: "Která vlastnost látky říká, zda látka vede elektrický proud?",
-  answers: ["Vodivost", "Barva", "Zápach", "Objem"],
-  correct: 0,
-  explanation: "Vodivost vyjadřuje schopnost látky vést elektrický proud."
-},
-{
-  question: "Jak se nazývá změna z pevného skupenství na kapalné?",
-  answers: ["Tání", "Tuhnutí", "Sublimace", "Kondenzace"],
-  correct: 0,
-  explanation: "Přechod z pevného skupenství do kapalného se nazývá tání."
-},
-{
-  question: "Jak se nazývá změna z kapalného skupenství na plynné?",
-  answers: ["Vypařování", "Tuhnutí", "Desublimace", "Krystalizace"],
-  correct: 0,
-  explanation: "Přechod kapaliny na plyn se nazývá vypařování."
-},
-{
-  question: "Jak se nazývá změna z plynného skupenství na kapalné?",
-  answers: ["Kondenzace", "Tání", "Sublimace", "Tuhnutí"],
-  correct: 0,
-  explanation: "Přechod plynu na kapalinu se nazývá kondenzace neboli zkapalnění."
-},
-{
-  question: "Jak se nazývá změna z pevného skupenství přímo na plynné?",
-  answers: ["Sublimace", "Tání", "Kondenzace", "Tuhnutí"],
-  correct: 0,
-  explanation: "Sublimace je přechod z pevného skupenství přímo do plynného."
-},
-{
-  question: "Jak se nazývá změna z plynného skupenství přímo na pevné?",
-  answers: ["Desublimace", "Vypařování", "Tání", "Var"],
-  correct: 0,
-  explanation: "Desublimace je přechod z plynného skupenství přímo do pevného."
-},
-{
-  question: "Které skupenství má stálý tvar i objem?",
-  answers: ["Pevné", "Kapalné", "Plynné", "Plazma vždy při pokojové teplotě"],
-  correct: 0,
-  explanation: "Pevné látky mají stálý tvar i objem."
-},
-{
-  question: "Které skupenství má stálý objem, ale tvar podle nádoby?",
-  answers: ["Kapalné", "Pevné", "Plynné", "Žádné"],
-  correct: 0,
-  explanation: "Kapaliny mají stálý objem, ale tvar zaujímají podle nádoby."
-},
-{
-  question: "Které skupenství nemá stálý tvar ani stálý objem?",
-  answers: ["Plynné", "Pevné", "Kapalné", "Krystalické"],
-  correct: 0,
-  explanation: "Plyny nemají stálý tvar ani objem a vyplňují dostupný prostor."
-},
-{
-  question: "Co je plazma?",
-  answers: ["Skupenství vznikající za velmi vysokých teplot", "Druh laboratorního skla", "Lék proti horečce", "Typ piktogramu"],
-  correct: 0,
-  explanation: "Plazma vzniká za velmi vysokých teplot a vyskytuje se například v ohni, blescích nebo polární záři."
-},
-{
-  question: "Jaký fyzikální děj probíhá při tání ledu?",
-  answers: ["Mění se skupenství, ale ne chemické složení", "Vzniká nová chemická látka", "Vzniká kov", "Probíhá neutralizace"],
-  correct: 0,
-  explanation: "Tání ledu je fyzikální děj, protože se mění pouze skupenství vody."
-},
-{
-  question: "Který z uvedených dějů je chemický?",
-  answers: ["Rezavění železa", "Tání ledu", "Vaření vody", "Rozdrcení křídy"],
-  correct: 0,
-  explanation: "Rezavění železa je chemický děj, protože vznikají nové látky."
-},
-{
-  question: "Který z uvedených dějů je fyzikální?",
-  answers: ["Filtrace odpadní vody", "Hoření síry", "Spalování benzinu", "Trávení potravy"],
-  correct: 0,
-  explanation: "Filtrace je fyzikální děj, protože se při ní nemění chemické složení látek."
-}
-    ];
+    document.addEventListener("DOMContentLoaded", () => {
+          const questionBank = [
+  {
+    question: "Jak se nazývá průmysl, který se zabývá výrobou chemických látek a výrobků?",
+    answers: ["Chemický průmysl", "Textilní průmysl", "Dřevařský průmysl", "Potravinářský průmysl"],
+    correct: 0,
+    explanation: "Chemický průmysl vyrábí chemické látky, například kyseliny, hnojiva, plasty nebo léčiva."
+  },
+  {
+    question: "Která kyselina se průmyslově vyrábí Ostwaldovým postupem?",
+    answers: ["Kyselina dusičná", "Kyselina sírová", "Kyselina chlorovodíková", "Kyselina octová"],
+    correct: 0,
+    explanation: "Ostwaldův postup se používá k výrobě kyseliny dusičné."
+  },
+  {
+    question: "Jaká látka je hlavní surovinou pro výrobu kyseliny dusičné?",
+    answers: ["Amoniak", "Methan", "Oxid uhličitý", "Chlorid sodný"],
+    correct: 0,
+    explanation: "Při výrobě kyseliny dusičné se jako výchozí látka používá amoniak."
+  },
+  {
+    question: "Jak se nazývá průmyslový postup výroby amoniaku?",
+    answers: ["Haberův-Boschův postup", "Ostwaldův postup", "Elektrolýza", "Destilace"],
+    correct: 0,
+    explanation: "Amoniak se vyrábí Haberovým-Boschovým postupem z dusíku a vodíku."
+  },
+  {
+    question: "K čemu se v chemickém průmyslu často používá amoniak?",
+    answers: ["K výrobě hnojiv", "K výrobě skla", "K výrobě papíru", "K výrobě cihel"],
+    correct: 0,
+    explanation: "Amoniak je důležitou surovinou pro výrobu dusíkatých hnojiv."
+  },
+  {
+    question: "Které látky se označují jako dusíkatá hnojiva?",
+    answers: ["Hnojiva obsahující dusík", "Hnojiva obsahující pouze uhlík", "Hnojiva bez chemických prvků", "Hnojiva obsahující jen vodík"],
+    correct: 0,
+    explanation: "Dusíkatá hnojiva obsahují dusík, který rostliny potřebují k růstu."
+  },
+  {
+    question: "Jaký pozitivní vliv mají průmyslově vyráběná hnojiva?",
+    answers: ["Zvyšují úrodu zemědělských plodin", "Způsobují jen znečištění", "Zastavují růst rostlin", "Odstraňují kyslík z půdy"],
+    correct: 0,
+    explanation: "Hnojiva dodávají rostlinám živiny a mohou zvýšit zemědělskou úrodu."
+  },
+  {
+    question: "Jaký negativní dopad může mít nadměrné používání hnojiv?",
+    answers: ["Znečištění vody", "Vznik čistého kyslíku", "Zmenšení průmyslu", "Vznik kovů v půdě"],
+    correct: 0,
+    explanation: "Přebytečná hnojiva se mohou dostat do řek a podzemních vod a způsobit jejich znečištění."
+  },
+  {
+    question: "Jak se nazývá proces, kdy se do vody dostává příliš mnoho živin a dochází k přemnožení řas?",
+    answers: ["Eutrofizace", "Destilace", "Krystalizace", "Dimerizace"],
+    correct: 0,
+    explanation: "Eutrofizace vzniká například kvůli nadbytku dusíkatých a fosforečných látek ve vodě."
+  },
+  {
+    question: "Který prvek je obsažen v kyselině dusičné?",
+    answers: ["Dusík", "Železo", "Vápník", "Helium"],
+    correct: 0,
+    explanation: "Kyselina dusičná má vzorec HNO3 a obsahuje dusík."
+  },
+  {
+    question: "Jaký je sumární vzorec kyseliny dusičné?",
+    answers: ["HNO3", "H2SO4", "HCl", "NaOH"],
+    correct: 0,
+    explanation: "Sumární vzorec kyseliny dusičné je HNO3."
+  },
+  {
+    question: "Jaká je přibližná molární hmotnost kyseliny dusičné?",
+    answers: ["63 g/mol", "18 g/mol", "44 g/mol", "100 g/mol"],
+    correct: 0,
+    explanation: "Kyselina dusičná má přibližnou molární hmotnost 63 g/mol."
+  },
+  {
+    question: "Proč může být kyselina dusičná za normálních podmínek nažloutlá?",
+    answers: ["Kvůli rozpuštěnému NO2", "Kvůli rozpuštěnému kyslíku", "Kvůli vodíku", "Kvůli sodíku"],
+    correct: 0,
+    explanation: "Nažloutlé zbarvení kyseliny dusičné způsobuje rozpuštěný oxid dusičitý NO2."
+  },
+  {
+    question: "Jak se nazývají soli kyseliny dusičné?",
+    answers: ["Dusičnany", "Sírany", "Chloridy", "Uhličitany"],
+    correct: 0,
+    explanation: "Soli kyseliny dusičné se nazývají dusičnany."
+  },
+  {
+    question: "Jaký problém mohou dusičnany způsobovat v lidském těle?",
+    answers: ["Snižují schopnost krve přenášet kyslík", "Zvyšují množství kyslíku v krvi", "Vytvářejí cukr v krvi", "Zlepšují činnost plic"],
+    correct: 0,
+    explanation: "Dusičnany mohou přispívat ke vzniku methemoglobinemie, při které krev hůře přenáší kyslík."
+  },
+  {
+    question: "Který oxid dusíku se může podílet na vzniku kyselých dešťů?",
+    answers: ["Oxid dusičitý", "Oxid uhličitý", "Oxid vápenatý", "Oxid křemičitý"],
+    correct: 0,
+    explanation: "Oxidy dusíku mohou v atmosféře reagovat s vodou a podílet se na vzniku kyselých dešťů."
+  },
+  {
+    question: "Co jsou kyselé deště?",
+    answers: ["Srážky obsahující kyselé látky", "Déšť bez vody", "Déšť tvořený pouze kyslíkem", "Srážky obsahující jen písek"],
+    correct: 0,
+    explanation: "Kyselé deště vznikají, když se do ovzduší dostanou oxidy síry nebo dusíku a reagují s vodou."
+  },
+  {
+    question: "Jaký dopad mohou mít kyselé deště na životní prostředí?",
+    answers: ["Poškozují lesy, půdu i vodní ekosystémy", "Zlepšují kvalitu půdy", "Zvyšují množství ryb ve vodě", "Nemají žádný vliv"],
+    correct: 0,
+    explanation: "Kyselé deště mohou poškozovat rostliny, okyselovat půdu a škodit vodním organismům."
+  },
+  {
+    question: "Který plyn je hlavní složkou zemního plynu?",
+    answers: ["Methan", "Vodík", "Kyslík", "Dusík"],
+    correct: 0,
+    explanation: "Hlavní složkou zemního plynu je methan."
+  },
+  {
+    question: "Jaký je sumární vzorec methanu?",
+    answers: ["CH4", "CO2", "H2O", "NH3"],
+    correct: 0,
+    explanation: "Methan má sumární vzorec CH4."
+  },
+  {
+    question: "Jaký dopad má methan na klima?",
+    answers: ["Je skleníkovým plynem", "Ochladí Zemi okamžitě", "Nemá žádný vliv", "Mění se na kov"],
+    correct: 0,
+    explanation: "Methan patří mezi skleníkové plyny a přispívá ke změně klimatu."
+  },
+  {
+    question: "Jaký plyn vzniká při dokonalém spalování methanu?",
+    answers: ["Oxid uhličitý", "Amoniak", "Chlor", "Ozón"],
+    correct: 0,
+    explanation: "Při dokonalém spalování methanu vzniká oxid uhličitý a voda."
+  },
+  {
+    question: "Jaký je vzorec oxidu uhličitého?",
+    answers: ["CO2", "CO", "CH4", "NO2"],
+    correct: 0,
+    explanation: "Oxid uhličitý má vzorec CO2."
+  },
+  {
+    question: "Jaký vliv má oxid uhličitý na životní prostředí?",
+    answers: ["Přispívá ke skleníkovému efektu", "Způsobuje okamžité zamrznutí Země", "Je vždy jedovatý v malém množství", "Nemůže být v atmosféře"],
+    correct: 0,
+    explanation: "Oxid uhličitý je skleníkový plyn a jeho zvýšené množství přispívá ke změně klimatu."
+  },
+  {
+    question: "Jaký je vzorec oxidu uhelnatého?",
+    answers: ["CO", "CO2", "H2O", "O2"],
+    correct: 0,
+    explanation: "Oxid uhelnatý má vzorec CO."
+  },
+  {
+    question: "Proč je oxid uhelnatý nebezpečný?",
+    answers: ["Je jedovatý a brání krvi přenášet kyslík", "Je to běžná živina", "Je to pevná látka vhodná k jídlu", "Je vždy viditelný a voňavý"],
+    correct: 0,
+    explanation: "Oxid uhelnatý je jedovatý plyn, který se váže na krevní barvivo a omezuje přenos kyslíku."
+  },
+  {
+    question: "Co je katalyzátor?",
+    answers: ["Látka, která ovlivňuje rychlost reakce a po reakci zůstává nezměněná", "Látka, která se vždy spotřebuje", "Látka, která je pouze palivem", "Látka, která vzniká jen při dešti"],
+    correct: 0,
+    explanation: "Katalyzátor urychluje nebo ovlivňuje chemickou reakci, ale po reakci zůstává v nezměněné podobě."
+  },
+  {
+    question: "Jaký katalyzátor se používá při katalytické oxidaci amoniaku?",
+    answers: ["Platina s příměsí rhodia a palladia", "Sodík", "Vápník", "Uhlík"],
+    correct: 0,
+    explanation: "Při výrobě kyseliny dusičné se používá platinový katalyzátor s příměsí rhodia a palladia."
+  },
+  {
+    question: "Jak se nazývá reakce, při které se uvolňuje energie obvykle ve formě tepla?",
+    answers: ["Exotermická reakce", "Endotermická reakce", "Neutralizace bez tepla", "Dimerizace"],
+    correct: 0,
+    explanation: "Exotermická reakce uvolňuje energii, často ve formě tepla."
+  },
+  {
+    question: "Jak se nazývá reakce, při které se spotřebovává energie?",
+    answers: ["Endotermická reakce", "Exotermická reakce", "Spalování", "Koroze"],
+    correct: 0,
+    explanation: "Endotermická reakce potřebuje ke svému průběhu energii."
+  },
+  {
+    question: "Která látka je významnou sloučeninou vodíku s kyslíkem?",
+    answers: ["Voda", "Methan", "Amoniak", "Oxid uhličitý"],
+    correct: 0,
+    explanation: "Nejvýznamnější sloučeninou vodíku s kyslíkem je voda."
+  },
+  {
+    question: "Proč je ochrana vody důležitá pro životní prostředí?",
+    answers: ["Voda je nezbytná pro život organismů", "Voda není pro život důležitá", "Voda se v přírodě nevyskytuje", "Voda vždy sama zmizí"],
+    correct: 0,
+    explanation: "Voda je nezbytná pro život lidí, živočichů i rostlin."
+  },
+  {
+    question: "Co může způsobit vypouštění nečištěných průmyslových odpadních vod?",
+    answers: ["Znečištění řek a poškození organismů", "Zlepšení kvality vody", "Vznik pitné vody", "Zvýšení množství kyslíku ve vodě"],
+    correct: 0,
+    explanation: "Nečištěné odpadní vody mohou obsahovat škodlivé látky, které ohrožují vodní organismy."
+  },
+  {
+    question: "Jaký je hlavní úkol čistírny odpadních vod?",
+    answers: ["Odstraňovat nečistoty z odpadní vody", "Vyrábět plasty", "Zvyšovat znečištění vody", "Vyrábět zemní plyn"],
+    correct: 0,
+    explanation: "Čistírna odpadních vod slouží k odstranění nečistot před návratem vody do přírody."
+  },
+  {
+    question: "Jak se nazývá směs dvou nebo více kapalin, kterou nelze oddělit obyčejnou destilací?",
+    answers: ["Azeotropická směs", "Suspenze", "Emulze", "Roztok soli"],
+    correct: 0,
+    explanation: "Azeotropická směs má takové složení, že ji nelze jednoduše oddělit destilací."
+  },
+  {
+    question: "Co je podazeotropická kyselina dusičná?",
+    answers: ["Kyselina dusičná o koncentraci přibližně 70 %", "Čistá voda", "Roztok cukru", "Plynný amoniak"],
+    correct: 0,
+    explanation: "Podazeotropická kyselina dusičná má koncentraci přibližně 70 %."
+  },
+  {
+    question: "Který český chemický podnik vyrábí nebo zpracovává chemické látky?",
+    answers: ["Lovochemie", "Národní divadlo", "Botanická zahrada", "Hvězdárna"],
+    correct: 0,
+    explanation: "Lovochemie patří mezi významné chemické podniky v České republice."
+  },
+  {
+    question: "Který podnik v České republice je spojován s výrobou chemických látek?",
+    answers: ["Synthesia", "Česká pošta", "Zoologická zahrada Praha", "Národní muzeum"],
+    correct: 0,
+    explanation: "Synthesia je známý chemický podnik v České republice."
+  },
+  {
+    question: "Jaký typ výrobků vyrábí chemický průmysl kromě kyselin a hnojiv?",
+    answers: ["Plasty", "Dřevěné trámy", "Knihy", "Kamenné sochy"],
+    correct: 0,
+    explanation: "Chemický průmysl vyrábí mimo jiné plasty, barviva, léčiva, hnojiva nebo čisticí prostředky."
+  },
+  {
+    question: "Jaký problém pro přírodu představují některé plasty?",
+    answers: ["Pomalu se rozkládají", "Rychle se mění na kyslík", "Jsou vždy jedlé", "Nikdy se nedostanou do oceánů"],
+    correct: 0,
+    explanation: "Mnohé plasty se v přírodě rozkládají velmi dlouho a mohou znečišťovat prostředí."
+  },
+  {
+    question: "Co jsou mikroplasty?",
+    answers: ["Velmi malé částice plastů", "Malé kapky vody", "Krystaly soli", "Částice čistého kyslíku"],
+    correct: 0,
+    explanation: "Mikroplasty jsou drobné částice plastů, které mohou pronikat do vody, půdy i organismů."
+  },
+  {
+    question: "Jak může člověk snížit množství plastového odpadu?",
+    answers: ["Tříděním a omezením jednorázových plastů", "Vyhazováním plastů do řeky", "Pálením plastů doma", "Mícháním plastů s bioodpadem"],
+    correct: 0,
+    explanation: "Třídění odpadu a omezení jednorázových plastů pomáhá snižovat zátěž životního prostředí."
+  },
+  {
+    question: "Proč není vhodné pálit plasty doma?",
+    answers: ["Mohou vznikat škodlivé látky", "Vzniká pitná voda", "Plasty se změní na hnojivo", "Nevzniká žádný kouř"],
+    correct: 0,
+    explanation: "Při pálení plastů mohou vznikat jedovaté a dráždivé látky škodlivé pro zdraví i ovzduší."
+  },
+  {
+    question: "Co znamená recyklace?",
+    answers: ["Opětovné využití odpadu jako suroviny", "Vyhození odpadu do přírody", "Spalování všeho odpadu", "Míchání chemikálií bez pravidel"],
+    correct: 0,
+    explanation: "Recyklace znamená zpracování odpadu tak, aby mohl být znovu využit."
+  },
+  {
+    question: "Jaký je jeden z hlavních cílů ekologizace chemického průmyslu?",
+    answers: ["Snížit škodlivé dopady na životní prostředí", "Zvýšit množství odpadu", "Vypouštět více kouře", "Znečišťovat řeky"],
+    correct: 0,
+    explanation: "Ekologizace průmyslu se snaží omezit znečištění a šetřit suroviny i energii."
+  },
+  {
+    question: "Co jsou emise?",
+    answers: ["Látky vypouštěné do ovzduší", "Pouze pevné horniny", "Látky uložené v ledovci", "Rostliny ve skleníku"],
+    correct: 0,
+    explanation: "Emise jsou látky, které se vypouštějí do ovzduší, například z továren nebo dopravy."
+  },
+  {
+    question: "Jak mohou továrny snižovat znečištění ovzduší?",
+    answers: ["Používáním filtrů a čištěním spalin", "Vypouštěním kouře bez kontroly", "Spalováním odpadu na volném prostranství", "Zvětšením komínů bez filtrace"],
+    correct: 0,
+    explanation: "Filtry a zařízení na čištění spalin pomáhají zachytit škodlivé látky před vypuštěním do ovzduší."
+  },
+  {
+    question: "Co je havárie v chemickém závodě?",
+    answers: ["Neplánovaná událost, při které mohou uniknout nebezpečné látky", "Běžná školní přestávka", "Řízená výroba pitné vody", "Pěstování rostlin"],
+    correct: 0,
+    explanation: "Chemická havárie může ohrozit zdraví lidí i životní prostředí únikem nebezpečných látek."
+  },
+  {
+    question: "Proč musí být chemické látky správně skladovány?",
+    answers: ["Aby nedošlo k úniku, požáru nebo otravě", "Aby se změnily na potraviny", "Aby se mohly volně odpařovat", "Aby je mohl používat každý bez pravidel"],
+    correct: 0,
+    explanation: "Správné skladování chemikálií chrání lidi, zvířata, vodu, půdu i ovzduší."
+  },
+  {
+    question: "Co označuje pojem udržitelný rozvoj v průmyslu?",
+    answers: ["Výrobu, která bere ohled na přírodu i budoucí generace", "Výrobu bez pravidel", "Co největší těžbu bez omezení", "Znečištění řek kvůli zisku"],
+    correct: 0,
+    explanation: "Udržitelný rozvoj znamená uspokojovat současné potřeby tak, aby nebyly ohroženy potřeby budoucích generací."
+  },
+  {
+    question: "Jak může chemický průmysl šetřit přírodní zdroje?",
+    answers: ["Recyklací surovin a úsporou energie", "Vyhazováním surovin", "Zvyšováním odpadu", "Vypouštěním látek do přírody"],
+    correct: 0,
+    explanation: "Šetření surovin a energie pomáhá snižovat dopady průmyslu na životní prostředí."
+  },
+  {
+    question: "Které chování pomáhá chránit životní prostředí před chemickým znečištěním?",
+    answers: ["Odevzdávání nebezpečného odpadu na sběrná místa", "Vylévání chemikálií do kanalizace", "Vyhazování baterií do přírody", "Pálení barev a rozpouštědel doma"],
+    correct: 0,
+    explanation: "Nebezpečný odpad, například barvy, oleje nebo baterie, se má odevzdávat na určená sběrná místa."
+  }
+          ];
 
-    const state = {
-      round: [],
-      current: 0,
-      score: 0,
-      lightnings: 0,
-      answered: false,
-      history: []
-    };
+          const state = {
+            round: [],
+            current: 0,
+            score: 0,
+            lightnings: 0,
+            answered: false,
+            history: []
+          };
 
-    const $ = (id) => document.getElementById(id);
+          const $ = (id) => document.getElementById(id);
 
-    const screens = {
-      start: $("startScreen"),
-      game: $("gameScreen"),
-      result: $("resultScreen")
-    };
+          const screens = {
+            start: $("startScreen"),
+            game: $("gameScreen"),
+            result: $("resultScreen")
+          };
 
-    function showScreen(name) {
-      Object.values(screens).forEach(screen => screen.classList.remove("active"));
-      screens[name].classList.add("active");
-    }
+          function showScreen(name) {
+            Object.values(screens).forEach(screen => screen.classList.remove("active"));
+            screens[name].classList.add("active");
+          }
 
-    function shuffle(array) {
-      return [...array].sort(() => Math.random() - 0.5);
-    }
+          function shuffle(array) {
+            return [...array].sort(() => Math.random() - 0.5);
+          }
 
-    function startGame() {
-      const available = questionBank;
-      const count = 10;
+          function startGame() {
+            const available = questionBank;
+            const count = 10;
 
-      state.round = shuffle(available).slice(0, Math.min(count, available.length));
-      state.current = 0;
-      state.score = 0;
-      state.lightnings = 0;
-      state.answered = false;
-      state.history = [];
+            state.round = shuffle(available).slice(0, Math.min(count, available.length));
+            state.current = 0;
+            state.score = 0;
+            state.lightnings = 0;
+            state.answered = false;
+            state.history = [];
 
-      updateHeader();
-      showScreen("game");
-      renderQuestion();
-    }
+            updateHeader();
+            showScreen("game");
+            renderQuestion();
+          }
 
-    function updateHeader() {
-      $("roundNow").textContent = Math.min(state.current + 1, state.round.length || 0);
-      $("lightnings").textContent = state.lightnings;
-      $("scoreLabel").textContent = `Správně: ${state.score}`;
-      const progress = state.round.length ? (state.current / state.round.length) * 100 : 0;
-      $("progressBar").style.width = `${progress}%`;
-    }
+          function updateHeader() {
+            $("roundNow").textContent = Math.min(state.current + 1, state.round.length || 0);
+            $("lightnings").textContent = state.lightnings;
+            $("scoreLabel").textContent = `Správně: ${state.score}`;
+            const progress = state.round.length ? (state.current / state.round.length) * 100 : 0;
+            $("progressBar").style.width = `${progress}%`;
+          }
 
-    function renderQuestion() {
-      const q = state.round[state.current];
-      state.answered = false;      $("questionText").textContent = q.question;
-      $("feedback").className = "feedback";
-      $("feedback").textContent = "";
-      $("nextBtn").hidden = true;
-      $("answers").innerHTML = "";
-      updateHeader();
+          function renderQuestion() {
+            const q = state.round[state.current];
+            state.answered = false;      $("questionText").textContent = q.question;
+            $("feedback").className = "feedback";
+            $("feedback").textContent = "";
+            $("nextBtn").hidden = true;
+            $("answers").innerHTML = "";
+            updateHeader();
 
-      const mappedAnswers = q.answers.map((text, originalIndex) => ({ text, originalIndex }));
-      shuffle(mappedAnswers).forEach((answer, visibleIndex) => {
-        const button = document.createElement("button");
-        button.className = "answer";
-        button.type = "button";
-        button.innerHTML = `<span aria-hidden="true">${String.fromCharCode(65 + visibleIndex)}.</span> ${answer.text}`;
-        button.addEventListener("click", () => chooseAnswer(button, answer.originalIndex));
-        $("answers").appendChild(button);
-      });
-    }
+            const mappedAnswers = q.answers.map((text, originalIndex) => ({ text, originalIndex }));
+            shuffle(mappedAnswers).forEach((answer, visibleIndex) => {
+              const button = document.createElement("button");
+              button.className = "answer";
+              button.type = "button";
+              button.innerHTML = `<span aria-hidden="true">${String.fromCharCode(65 + visibleIndex)}.</span> ${answer.text}`;
+              button.addEventListener("click", () => chooseAnswer(button, answer.originalIndex));
+              $("answers").appendChild(button);
+            });
+          }
 
-    function chooseAnswer(button, selectedIndex) {
-      if (state.answered) return;
-      state.answered = true;
+          function chooseAnswer(button, selectedIndex) {
+            if (state.answered) return;
+            state.answered = true;
 
-      const q = state.round[state.current];
-      const isCorrect = selectedIndex === q.correct;
-      const buttons = [...document.querySelectorAll(".answer")];
+            const q = state.round[state.current];
+            const isCorrect = selectedIndex === q.correct;
+            const buttons = [...document.querySelectorAll(".answer")];
 
-      buttons.forEach(btn => {
-        btn.disabled = true;
-        const text = btn.textContent.replace(/^[A-D]\.\s*/, "").trim();
-        const originalIndex = q.answers.indexOf(text);
-        if (originalIndex === q.correct) btn.classList.add("correct");
-      });
+            buttons.forEach(btn => {
+              btn.disabled = true;
+              const text = btn.textContent.replace(/^[A-D]\.\s*/, "").trim();
+              const originalIndex = q.answers.indexOf(text);
+              if (originalIndex === q.correct) btn.classList.add("correct");
+            });
 
-      if (isCorrect) {
-        state.score += 1;
-        state.lightnings += 1;
-        button.classList.add("correct");
-        $("feedback").innerHTML = `✅ Správně! Získáváš energii.<br><span class="small">${q.explanation}</span>`;
-      } else {
-        button.classList.add("wrong");
-        $("feedback").innerHTML = `❌ To není správně. Správná odpověď: <strong>${q.answers[q.correct]}</strong>.<br><span class="small">${q.explanation}</span>`;
-      }
+            if (isCorrect) {
+              state.score += 1;
+              state.lightnings += 1;
+              button.classList.add("correct");
+              $("feedback").innerHTML = `✅ Správně! Získáváš energii.<br><span class="small">${q.explanation}</span>`;
+            } else {
+              button.classList.add("wrong");
+              $("feedback").innerHTML = `❌ To není správně. Správná odpověď: <strong>${q.answers[q.correct]}</strong>.<br><span class="small">${q.explanation}</span>`;
+            }
 
-      state.history.push({
-        question: q.question,
-        selected: q.answers[selectedIndex],
-        correct: q.answers[q.correct],
-        isCorrect
-      });
+            state.history.push({
+              question: q.question,
+              selected: q.answers[selectedIndex],
+              correct: q.answers[q.correct],
+              isCorrect
+            });
 
-      $("feedback").classList.add("show");
-      $("nextBtn").hidden = false;
-      updateHeader();
-    }
+            $("feedback").classList.add("show");
+            $("nextBtn").hidden = false;
+            updateHeader();
+          }
 
-    function nextQuestion() {
-      state.current += 1;
-      if (state.current >= state.round.length) {
-        showResults();
-      } else {
-        renderQuestion();
-      }
-    }
+          function nextQuestion() {
+            state.current += 1;
+            if (state.current >= state.round.length) {
+              showResults();
+            } else {
+              renderQuestion();
+            }
+          }
 
-    function showResults() {
-      $("roundNow").textContent = state.round.length;
-      $("progressBar").style.width = "100%";
-      showScreen("result");
+          function showResults() {
+            $("roundNow").textContent = state.round.length;
+            $("progressBar").style.width = "100%";
+            showScreen("result");
 
-      const total = state.round.length;
-      const percent = Math.round((state.score / total) * 100);
-      $("finalScore").textContent = `${state.score}/${total}`;
-      $("finalLightnings").textContent = state.lightnings;
+            const total = state.round.length;
+            const percent = Math.round((state.score / total) * 100);
+            $("finalScore").textContent = `${state.score}/${total}`;
+            $("finalLightnings").textContent = state.lightnings;
 
-      let message = "Dobrá práce!";
-      if (percent === 100) message = "Perfektní výsledek! Máš maximum energie.";
-      else if (percent >= 80) message = "Výborně! Většinu otázek máš správně.";
-      else if (percent >= 50) message = "Slušný výkon. Ještě pár pokusů a bude to skvělé.";
-      else message = "Nevadí, zkus další kolo a nasbírej více energie.";
+            let message = "Dobrá práce!";
+            if (percent === 100) message = "Perfektní výsledek! Máš maximum energie.";
+            else if (percent >= 80) message = "Výborně! Většinu otázek máš správně.";
+            else if (percent >= 50) message = "Slušný výkon. Ještě pár pokusů a bude to skvělé.";
+            else message = "Nevadí, zkus další kolo a nasbírej více energie.";
 
-      $("resultMessage").textContent = message;
-      renderReview();
-    }
+            $("resultMessage").textContent = message;
+            renderReview();
+          }
 
-    function renderReview() {
-      const review = $("review");
-      review.innerHTML = "";
-      state.history.forEach((item, index) => {
-        const div = document.createElement("div");
-        div.className = `review-item ${item.isCorrect ? "good" : "bad"}`;
-        div.innerHTML = `
-          <strong>${index + 1}. ${item.question}</strong>
-          <div class="small">Tvoje odpověď: ${item.selected}</div>
-          <div class="small">Správně: ${item.correct}</div>
-        `;
-        review.appendChild(div);
-      });
-    }
+          function renderReview() {
+            const review = $("review");
+            review.innerHTML = "";
+            state.history.forEach((item, index) => {
+              const div = document.createElement("div");
+              div.className = `review-item ${item.isCorrect ? "good" : "bad"}`;
+              div.innerHTML = `
+                <strong>${index + 1}. ${item.question}</strong>
+                <div class="small">Tvoje odpověď: ${item.selected}</div>
+                <div class="small">Správně: ${item.correct}</div>
+              `;
+              review.appendChild(div);
+            });
+          }
 
-    $("startBtn").addEventListener("click", startGame);
-    $("nextBtn").addEventListener("click", nextQuestion);
-    $("restartBtn").addEventListener("click", () => {
-      $("review").hidden = true;
-      $("showReviewBtn").textContent = "Zobrazit přehled";
-      showScreen("start");
-      $("roundNow").textContent = "0";
-      $("lightnings").textContent = "0";
-    });
-    $("showReviewBtn").addEventListener("click", () => {
-      const review = $("review");
-      review.hidden = !review.hidden;
-      $("showReviewBtn").textContent = review.hidden ? "Zobrazit přehled" : "Skrýt přehled";
+          $("startBtn").addEventListener("click", startGame);
+          $("nextBtn").addEventListener("click", nextQuestion);
+          $("restartBtn").addEventListener("click", () => {
+            $("review").hidden = true;
+            $("showReviewBtn").textContent = "Zobrazit přehled";
+            showScreen("start");
+            $("roundNow").textContent = "0";
+            $("lightnings").textContent = "0";
+          });
+          $("showReviewBtn").addEventListener("click", () => {
+            const review = $("review");
+            review.hidden = !review.hidden;
+            $("showReviewBtn").textContent = review.hidden ? "Zobrazit přehled" : "Skrýt přehled";
+          });
+
     });
   </script>
 </body>
